@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confidence Progress</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+</head>
+<body>
+
+<h2>Confidence Progress 📈</h2>
+<canvas id="confidenceChart" width="600" height="300"></canvas>
+
+<script>
+fetch("/analytics")
+.then(res => res.json())
+.then(data => {
+  new Chart(document.getElementById("confidenceChart"), {
+    type: "line",
+    data: {
+      labels: data.attempts,
+      datasets: [
+        { label: "Confidence", data: data.confidence },
+        { label: "Content", data: data.content },
+        { label: "Final Score", data: data.final }
+      ]
+    }
+  });
+});
+
+setInterval(() => {
+  location.reload();
+}, 5000);
+  setInterval(() => {
+    fetch("/analytics")
+      .then(res => res.json())
+      .then(data => {
+        chart.data.labels = data.attempts;
+        chart.data.datasets[0].data = data.confidence;
+        if (chart.data.datasets[1]) {
+          chart.data.datasets[1].data = data.content;
+        }
+        if (chart.data.datasets[2]) {
+          chart.data.datasets[2].data = data.final;
+        }
+        chart.update();
+      });
+  }, 3000);
+</script>
+</body>
+</html>

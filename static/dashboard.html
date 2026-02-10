@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interview Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial; background: #f5f7fa; padding: 20px; }
+    h1 { text-align: center; }
+    .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+    .card { background: white; padding: 20px; border-radius: 10px; width: 22%; text-align: center; }
+    canvas { background: white; border-radius: 10px; padding: 15px; }
+  </style>
+</head>
+<body>
+
+<h1>Interview Analytics Dashboard 📊</h1>
+
+<div class="stats">
+  <div class="card">
+    <h3>Total Attempts</h3>
+    <p id="attemptCount">0</p>
+  </div>
+  <div class="card">
+    <h3>Avg Confidence</h3>
+    <p id="avgConfidence">0</p>
+  </div>
+  <div class="card">
+    <h3>Avg Content</h3>
+    <p id="avgContent">0</p>
+  </div>
+  <div class="card">
+    <h3>Avg Final</h3>
+    <p id="avgFinal">0</p>
+  </div>
+</div>
+
+<canvas id="chart" height="120"></canvas>
+
+<script>
+let chart;
+
+fetch("/analytics")
+.then(res => res.json())
+.then(data => {
+
+  document.getElementById("attemptCount").innerText = data.attempts.length;
+
+  document.getElementById("avgConfidence").innerText =
+    (data.confidence.reduce((a,b)=>a+b,0)/data.confidence.length).toFixed(2);
+
+  document.getElementById("avgContent").innerText =
+    (data.content.reduce((a,b)=>a+b,0)/data.content.length).toFixed(2);
+
+  document.getElementById("avgFinal").innerText =
+    (data.final.reduce((a,b)=>a+b,0)/data.final.length).toFixed(0);
+
+  chart = new Chart(document.getElementById("chart"), {
+    type: "line",
+    data: {
+      labels: data.attempts,
+      datasets: [
+        { label: "Confidence", data: data.confidence },
+        { label: "Content", data: data.content },
+        { label: "Final Score", data: data.final }
+      ]
+    }
+  });
+});
+</script>
+
+</body>
+</html>
