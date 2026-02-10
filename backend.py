@@ -84,7 +84,6 @@ def confidence_graph():
         }
         for i, h in enumerate(history)
     ]
-import matplotlib.pyplot as plt
 from fastapi.responses import FileResponse
 
 @app.get("/confidence-graph")
