@@ -161,3 +161,8 @@ def generate_report():
     doc.build(content)
 
     return FileResponse(file_path, filename="Interview_Report.pdf")
+from fastapi.responses import RedirectResponse
+
+@app.get("/")
+def root():
+    return RedirectResponse(url="/static/dashboard.html")
