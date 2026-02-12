@@ -161,8 +161,15 @@ def generate_report():
     doc.build(content)
 
     return FileResponse(file_path, filename="Interview_Report.pdf")
-from fastapi.responses import RedirectResponse
-
-@app.get("/")
-def root():
-    return RedirectResponse(url="/static/dashboard.html")
+    from fastapi.responses import RedirectResponse
+    @app.get("/")
+    def root():
+        return RedirectResponse(url="/static/dashboard.html")
+        from fastapi.responses import RedirectResponse
+        @app.get("/")
+        def home():
+            return RedirectResponse(url="C:\Users\priya\Desktop\ai-interview-coach\static\index.html")
+            from fastapi import UploadFile, File
+            @app.post("/upload-audio")
+            async def upload_audio(file: UploadFile = File(...)):
+                return {"filename": file.filename, "status": "Uploaded successfully"}

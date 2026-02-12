@@ -4,6 +4,21 @@
   <title>Interview Analytics Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+body {
+  font-family: Arial;
+  background: #f8fafc;
+}
+h1 {
+  text-align: center;
+  color: #0f172a;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
     body { font-family: Arial; background: #f5f7fa; padding: 20px; }
     h1 { text-align: center; }
     .stats { display: flex; justify-content: space-around; margin: 20px 0; }
@@ -14,7 +29,10 @@
 <body>
 
 <h1>Interview Analytics Dashboard 📊</h1>
-
+<div class="card">
+  <h1>Interview Performance Dashboard</h1>
+  <canvas id="confidenceChart"></canvas>
+</div>
 <div class="stats">
   <div class="card">
     <h3>Total Attempts</h3>
