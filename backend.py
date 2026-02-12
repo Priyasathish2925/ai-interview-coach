@@ -168,7 +168,7 @@ def generate_report():
         from fastapi.responses import RedirectResponse
         @app.get("/")
         def home():
-            return RedirectResponse(url="C:\Users\priya\Desktop\ai-interview-coach\static\index.html")
+            return RedirectResponse(url="/static/index.html")
             from fastapi import UploadFile, File
             @app.post("/upload-audio")
             async def upload_audio(file: UploadFile = File(...)):
